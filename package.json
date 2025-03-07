@@ -10,11 +10,15 @@
   "scripts": {
     "format": "biome format --write .",
     "lint": "biome lint --write .",
-    "check": "biome check --write ."
+    "check": "biome check --write .",
+    "db:migrate": "dotenv -e .env -- bun run --cwd ./packages/lib-prisma migrate",
+    "db:generate": "bun run --cwd ./packages/lib-prisma generate"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "dotenv": "^16.4.5",
+    "prisma": "^6.4.1"
   },
   "peerDependencies": {
     "typescript": "^5"
