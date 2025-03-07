@@ -1,7 +1,8 @@
 {
   "name": "llm-ops-api",
   "scripts": {
-    "dev": "bun run --hot src/index.ts"
+    "dev": "bun run --hot src/index.ts",
+    "debug": "bun run --inspect src/index.ts"
   },
   "dependencies": {
     "hono": "^4.7.4"

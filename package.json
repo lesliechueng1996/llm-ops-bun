@@ -12,7 +12,8 @@
     "lint": "biome lint --write .",
     "check": "biome check --write .",
     "db:migrate": "dotenv -e .env -- bun run --cwd ./packages/lib-prisma migrate",
-    "db:generate": "bun run --cwd ./packages/lib-prisma generate"
+    "db:generate": "bun run --cwd ./packages/lib-prisma generate",
+    "dev:api": "bun run --cwd ./apps/llm-ops-api dev"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
