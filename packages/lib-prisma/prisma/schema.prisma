@@ -1,0 +1,106 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Account {
+    id               String            @id @default(cuid()) @db.VarChar(36)
+    name             String            @default("") @db.VarChar(255)
+    email            String            @unique @db.VarChar(255)
+    password         String            @default("") @db.VarChar(255)
+    avatar           String            @default("") @db.VarChar(255)
+    lastLoginAt      DateTime          @default(now()) @map("last_login_at") @db.Timestamp(3)
+    lastLoginIp      String            @default("") @map("last_login_ip") @db.VarChar(255)
+    createdAt        DateTime          @default(now()) @map("created_at") @db.Timestamp(3)
+    updatedAt        DateTime          @default(now()) @updatedAt @map("updated_at") @db.Timestamp(3)
+    apps             App[]
+    accountOAuths    AccountOAuth[]
+    apiToolProviders ApiToolProvider[]
+    apiTools         ApiTool[]
+
+    @@map("account")
+}
+
+enum AppStatus {
+    DRAFT
+    PUBLISHED
+}
+
+model App {
+    id                  String    @id @default(cuid()) @db.VarChar(36)
+    accountId           String    @map("account_id") @db.VarChar(36)
+    account             Account   @relation(fields: [accountId], references: [id])
+    name                String    @default("") @db.VarChar(255)
+    description         String    @default("") @db.Text
+    icon                String    @default("") @db.VarChar(255)
+    status              AppStatus @default(DRAFT)
+    appConfigId         String?   @map("app_config_id") @db.VarChar(36)
+    draftAppConfigId    String?   @map("draft_app_config_id") @db.VarChar(36)
+    debugConversationId String?   @map("debug_conversation_id") @db.VarChar(36)
+    createdAt           DateTime  @default(now()) @map("created_at") @db.Timestamp(3)
+    updatedAt           DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamp(3)
+
+    @@index([accountId], name: "idx_app_account_id")
+    @@map("app")
+}
+
+model AccountOAuth {
+    id             String   @id @default(cuid()) @db.VarChar(36)
+    accountId      String   @map("account_id") @db.VarChar(36)
+    account        Account  @relation(fields: [accountId], references: [id])
+    provider       String   @default("") @db.VarChar(255)
+    openid         String   @default("") @db.VarChar(255)
+    encryptedToken String   @default("") @map("encrypted_token") @db.Text
+    createdAt      DateTime @default(now()) @map("created_at") @db.Timestamp(3)
+    updatedAt      DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp(3)
+
+    @@index([accountId, provider], name: "idx_account_oauth_account_id_provider")
+    @@map("account_oauth")
+}
+
+model ApiToolProvider {
+    id            String    @id @default(cuid()) @db.VarChar(36)
+    accountId     String    @map("account_id") @db.VarChar(36)
+    account       Account   @relation(fields: [accountId], references: [id])
+    name          String    @default("") @db.VarChar(255)
+    icon          String    @default("") @db.VarChar(255)
+    description   String    @default("") @db.Text
+    openapiSchema Json      @map("openapi_schema") @db.JsonB
+    headers       Json      @db.JsonB
+    createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamp(3)
+    updatedAt     DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamp(3)
+    apiTools      ApiTool[]
+
+    @@unique([accountId, name], name: "uk_api_tool_provider_account_id_name")
+    @@index([accountId], name: "idx_api_tool_provider_account_id")
+    @@map("api_tool_provider")
+}
+
+model ApiTool {
+    id          String          @id @default(cuid()) @db.VarChar(36)
+    accountId   String          @map("account_id") @db.VarChar(36)
+    account     Account         @relation(fields: [accountId], references: [id])
+    providerId  String          @map("provider_id") @db.VarChar(36)
+    provider    ApiToolProvider @relation(fields: [providerId], references: [id])
+    name        String          @default("") @db.VarChar(255)
+    description String          @default("") @db.Text
+    url         String          @default("") @db.VarChar(255)
+    method      String          @default("") @db.VarChar(32)
+    parameters  Json            @default("[]") @db.JsonB
+    createdAt   DateTime        @default(now()) @map("created_at") @db.Timestamp(3)
+    updatedAt   DateTime        @default(now()) @updatedAt @map("updated_at") @db.Timestamp(3)
+
+    @@unique([providerId, name], name: "uk_api_tool_provider_id_name")
+    @@index([accountId], name: "idx_api_tool_account_id")
+    @@map("api_tool")
+}
