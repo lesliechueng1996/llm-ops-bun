@@ -18,10 +18,13 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@types/bun": "latest",
-    "dotenv": "^16.4.5",
-    "prisma": "^6.4.1"
+    "dotenv": "^16.4.5"
   },
   "peerDependencies": {
     "typescript": "^5"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.13",
+    "nanoid": "^5.1.3"
   }
 }
