@@ -5,6 +5,7 @@
     "debug": "bun run --inspect src/index.ts"
   },
   "dependencies": {
+    "@hono/swagger-ui": "^0.5.1",
     "hono": "^4.7.4"
   },
   "devDependencies": {

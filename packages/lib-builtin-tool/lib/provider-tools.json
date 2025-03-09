@@ -1,0 +1,135 @@
+[
+  {
+    "name": "time",
+    "label": "时间",
+    "description": "一个用于获取当前时间的工具。",
+    "icon": "time-icon.svg",
+    "background": "#E5E7EB",
+    "category": "tool",
+    "created_at": 1722498386,
+    "tools": [
+      {
+        "name": "currentTime",
+        "label": "获取当前时间",
+        "description": "一个用于获取当前时间的工具。",
+        "params": []
+      }
+    ]
+  },
+  {
+    "name": "duckduckgo",
+    "label": "DuckDuckGo",
+    "description": "一个注重隐私的搜索引擎。",
+    "icon": "duckduckgo-icon.svg",
+    "background": "#FFFFFF",
+    "category": "search",
+    "created_at": 1722498386,
+    "tools": [
+      {
+        "name": "duckduckgoSearch",
+        "label": "DuckDuckGo搜索",
+        "description": "一个注重隐私的搜索引擎。",
+        "params": []
+      }
+    ]
+  },
+  {
+    "name": "dalle",
+    "label": "DALLE-3",
+    "description": "DALLE-3是一个文生图工具。",
+    "icon": "dalle-icon.png",
+    "background": "#E5E7EB",
+    "category": "image",
+    "created_at": 1722498386,
+    "tools": [
+      {
+        "name": "dalle3",
+        "label": "DALLE-3绘图工具",
+        "description": "DALLE-3是一个将文本转换成图片的绘图工具。",
+        "params": [
+          {
+            "name": "size",
+            "label": "图片尺寸",
+            "type": "select",
+            "default": "1024x1024",
+            "required": true,
+            "options": [
+              {
+                "label": "(方)1024x1024",
+                "value": "1024x1024"
+              },
+              {
+                "label": "(横屏)1792x1024",
+                "value": "1792x1024"
+              },
+              {
+                "label": "(竖屏)1024x1792",
+                "value": "1024x1792"
+              }
+            ],
+            "help": "选择图片的尺寸。",
+            "min": null,
+            "max": null
+          },
+          {
+            "name": "style",
+            "label": "图片风格",
+            "type": "select",
+            "default": "vivid",
+            "required": true,
+            "options": [
+              {
+                "label": "生动",
+                "value": "vivid"
+              },
+              {
+                "label": "自然",
+                "value": "natural"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "gaode",
+    "label": "高德工具包",
+    "description": "内置了高德天气预报和ip查询功能。",
+    "icon": "gaode-icon.png",
+    "background": "#E5E7EB",
+    "category": "tool",
+    "created_at": 1722498386,
+    "tools": [
+      {
+        "name": "gaodeWeather",
+        "label": "高德天气预报查询",
+        "description": "根据传递的城市查询该城市的天气预报信息。",
+        "params": []
+      },
+      {
+        "name": "gaodeIp",
+        "label": "高德ip所在地查询",
+        "description": "根据传递的IP信息转换为地理位置信息。",
+        "params": []
+      }
+    ]
+  },
+  {
+    "name": "wikipedia",
+    "label": "维基百科",
+    "description": "维基百科是一个由全世界的志愿者创建和编辑的免费在线百科全书。",
+    "icon": "wikipedia-icon.svg",
+    "background": "#FFFFFF",
+    "category": "other",
+    "created_at": 1722498386,
+    "tools": [
+      {
+        "name": "wikipediaSearch",
+        "label": "维基百科搜索",
+        "description": "一个用于执行维基百科搜索并提取片段和网页的工具。",
+        "params": []
+      }
+    ]
+  }
+]
